@@ -17,19 +17,13 @@
         <div class="row">
             <div class="col-lg-3">
                 <p class="Requests">Your Scheduled Rental Dates</p>
-                <ul class="list group">
-                    <li class="list-group-item">First Item</li>
-                    <li class="list-group-item">Second Item</li>
-                    <li class="list-group-item">Third Item</li>
-                </ul>
+                <ol id="demo"></ol>
             </div>
             <div class="col-lg-3">
                         <p class="Prompt">Choose a rental date</p>
                         <label for="datepicker">Date:</label>
                         <input type=text id="datepicker">
-                        <button onclick="myFunction()">Okay?</button>
-                        <br>
-                        <ol id="demo"></ol>
+                        <button onclick="myFunction()">Add Request</button>
             </div>
             <div class="col-lg-3">
                 <p class="Prompt">Rental Agreement Form</p>
@@ -65,16 +59,48 @@
 
     <script src="pikaday.js"></script>
     <script>
+    
+    var minimumDate = new Date();
+    var currentDay = minimumDate.getDay();
+    var currentHour = minimumDate.getHours();
 
+    // if it's Friday
+    if(currentDay == 5){
+        // if it's Friday before noon, the first available date is Monday
+        if(currentHour <= 12) {
+            minimumDate.setDate(minimumDate.getDate() + 3);
+        }
+        // if it's Friday after noon, the first available date is Tuesday
+        else {
+            minimumDate.setDate(minimumDate.getDate() + 4);
+        }
+    }
+    // If it's Saturday, the first available date is Tuesday
+    else if(currentDay == 6) {
+        minimumDate.setDate(minimumDate.getDate() + 3);
+    }
+    // If it's Sunday, or it's after noon, the first available date is the day after tomorrow
+    else if(currentDay == 0 || hour >= 12){
+        minimumDate.setDate(minimumDate.getDate() + 2);
+    }
+    // If it's before noon on a weekday, the first available date is tomorrow
+    else{
+        minimumDate.setDate(minimumDate.getDate() + 1);
+    }
+    
     var disable = false, picker = new Pikaday({
         field: document.getElementById('datepicker'),
         firstDay: 1,
-        minDate: new Date(2000, 0, 1),
+        minDate: minimumDate,
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020],
-        
+        /*
         disableDayFn: function(theDate) {
            return disable = !disable; 
+        },
+        */
+        disableWeekends: function(theDate) {
+            return true;
         }
     });
     </script>
