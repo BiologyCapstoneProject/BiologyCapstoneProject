@@ -15,16 +15,23 @@
         <h1>Biology Department Equipment Rentals</h1>
         <br>
         <div class="row">
+            <!--This is the left-most column-->
             <div class="col-lg-3">
                 <p class="Requests">Your Scheduled Rental Dates</p>
                 <ol id="demo"></ol>
+                <p id="demos"></p>
             </div>
+            <!--This is the left-middle column-->
             <div class="col-lg-3">
                         <p class="Prompt">Choose a rental date</p>
                         <label for="datepicker">Date:</label>
                         <input type=text id="datepicker">
-                        <button onclick="myFunction()">Add Request</button>
+                        <!--Clicking on the button called Add Request calls myFunction.
+                        myFunction adds the Date object selected to an array of Date objects,
+                        sorts the array, and writes the sorted list sensibly to the page-->
+                        <button onclick="sortParseAndWriteListOfDates()">Add Request</button>
             </div>
+            <!--This is the right-middle column-->
             <div class="col-lg-3">
                 <p class="Prompt">Rental Agreement Form</p>
                 <label for="name_entry_box">Name:</label>
@@ -34,17 +41,22 @@
                 <label for="eamil_entry_box">email:</label>
                 <input type="text" class="form-control" id="eamil_entry_box"></input>
             </div>
+            <!--This is the right-most column-->
+            <!--The text in this column was adapted from Ms. Rodriguez's paper form-->
             <div class="col-lg-3">
                 <p class="Prompt">Rental Agreement</p>
                 <p class="Agreement">By requesting a rental date, you understand that you are 
                 responsible for all equipment checked out. You will pay for repair or replacement 
                 of any lost or damaged items.</p>
                 <p class="Important"><strong>Very Important Information</strong></p>
+                <!--I have commented out the following rules, because I have implemented this logic in a javascript function.
+                If Ms. Rodriguez would like to show these rules, we can uncomment them--
                 <p class="Agreement">Equipment and supplies will be reserved on a <strong>first-come, first-served basis.</strong></p>
                 <p class="Agreement">In order to give us time to prepare the equipment and supplies, 
                 <strong>reservations must be placed one buisiness day in advance (M-F).</strong></p>
                 <p class="Agreement"><strong>Equipment may not be reserved for Saturday, Sundays, or Holidays.</strong></p>
                 <p class="Agreement"><strong>Requests for Mondays must be placed before 12 noon the previous friday.</strong></p>
+                -->
                 <p class="Agreement"><strong>Before leaving for your study lake, </strong>
                 retrieve sample bottles from the Ecology lab and fill the bottles with the appropriate fixative solutions. 
                 Fill cooler with ice.</p>
@@ -52,14 +64,15 @@
                 store the filter and filtrate in the freezer in the Ecology lab.</p>
             </div>
         </div>
+        <!--This section includes attribution to Dave Bushell, the creator of pikaday, with links to his Pikaday GitHub page-->
         <p class="Attribution">Pikaday was created by Dave Bushell. Access his <a href="https://github.com/dbushell/Pikaday">GitHub page</a></p>
         <p class="Attribution">Copyright © 2014 <a href="http://dbushell.com/">David Bushell</a> | BSD &amp; MIT license</p>
     </div>
 
-
     <script src="pikaday.js"></script>
-    <script>
     
+    <script>
+    // Get the current date, day, and hour
     var minimumDate = new Date();
     var currentDay = minimumDate.getDay();
     var currentHour = minimumDate.getHours();
@@ -88,6 +101,8 @@
         minimumDate.setDate(minimumDate.getDate() + 1);
     }
     
+    // This is the script that creates a new pikaday object. In addition to initializing some 
+    // of its fields, it sets the first available date, and disallows selection of weekend dates
     var disable = false, picker = new Pikaday({
         field: document.getElementById('datepicker'),
         firstDay: 1,
@@ -107,13 +122,35 @@
     
         
     <script>
-        function myFunction() {
-            var listOfDates = document.getElementById('demo');
-            var date = picker.toString('YYY-MM-DD');
-            var entry = document.createElement('li');
-            entry.appendChild(document.createTextNode(date));
-            listOfDates.appendChild(entry);
-            document.getElementById("demo").innerHTML = y;  
+        // This function sorts dates in ascending order.
+        // I used it because javascript's built in sort was behaving unpredictably when sorting Date objects
+        // This function is similar to the one found here: https://onpub.com/how-to-sort-an-array-of-dates-with-javascript-s7-a109
+        var sort_dates = function(date1, date2){
+            if(date1 > date2) return 1;
+            if(date1 < date2) return -1;
+            return 0;
+        };
+        // create 3 lists: an empty list of Date objects, a list of strings for days of the week, a list of strings for months of year
+        var dates = [];
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        // This function adds selected Date objects to the dates list, calls a sorting method for them, 
+        // parses them into Strings, and displays them in the format Friday February 17 2017
+        function sortParseAndWriteListOfDates() {
+            dates.push(picker.getDate());
+            dates.sort(sort_dates);
+            var numberOfDates = dates.length;
+            var text = "<ol>";
+            for(i = 0; i < numberOfDates; i++){
+                var dayOfWeek = days[dates[i].getDay()];
+                var monthOfYear = months[dates[i].getMonth()];
+                var theYear = dates[i].getFullYear();
+                var string = dates[i].toString();
+                text += "<li>" + dayOfWeek + ' ' + monthOfYear + ' ' + dates[i].getDate() + ' ' + theYear + "</li>";
+            }
+            text += "</ol>";
+            document.getElementById('demos').innerHTML = text;
+            
         }
     </script>
     <script src="./static/js/bootstrap.min.js"></script>
