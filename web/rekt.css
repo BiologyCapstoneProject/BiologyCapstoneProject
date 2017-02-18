@@ -10,7 +10,7 @@ h1 {
     background: -moz-linear-gradient(#1a4195, #0c2647); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#1a4195, #0c2647); /* Standard syntax */
     text-align: center;
-    font-family: "Arial", Arial, sans-serif;
+    font-family: "Open Sans", Open Sans, sans-serif;
     font-size: 3em;
     padding-bottom: 5%;
     padding-top: 5%;
@@ -18,7 +18,7 @@ h1 {
 }
 
 p {
-    font-family: "Arial", Arial, sans-serif;
+    font-family: "Open Sans", Open Sans, sans-serif;
     font-size: 1em;
 }
 .Prompt{
