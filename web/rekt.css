@@ -1,11 +1,19 @@
 body {
-    background-color: lightblue;
+    background-color: white;
 }
 
 h1 {
+    /* Linear gradients learned from W3Schools */
+    background: darkblue; /* For browsers that don't support gradients */
+    background: -webkit-linear-gradient(left top, darkblue, lightblue); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(bottom right, darkblue, lightblue); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(bottom right, darkblue, lightblue); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to bottom right, darkblue, lightblue); /* Standard syntax */
     text-align: center;
     font-family: "Arial", Arial, sans-serif;
     font-size: 3em;
+    padding-bottom: 5%;
+    color: black;
 }
 
 p {
@@ -20,6 +28,14 @@ p {
     font-size: 1.5em;
 }
 
-.attribution{
+.Attribution{
     font-size: .75em;
+}
+
+.Agreement{
+    font-size: 1.0em;
+}
+
+.Important{
+    font-size: 1.25em;
 }
