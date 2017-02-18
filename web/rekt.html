@@ -12,8 +12,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>Biology Department Equipment Rentals</h1>
-        <br>
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Biology Department Equipment Rentals</h1>
+            </div>
+        </div>
         <div class="row">
             <!--This is the left-most column-->
             <div class="col-lg-3">
@@ -120,7 +123,6 @@
     });
     </script>
     
-        
     <script>
         // This function sorts dates in ascending order.
         // I used it because javascript's built in sort was behaving unpredictably when sorting Date objects
@@ -150,7 +152,6 @@
             }
             text += "</ol>";
             document.getElementById('demos').innerHTML = text;
-            
         }
     </script>
     <script src="./static/js/bootstrap.min.js"></script>
