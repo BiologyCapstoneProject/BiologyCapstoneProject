@@ -29,13 +29,14 @@
                         <p class="Prompt">Choose a rental date</p>
                         <label for="datepicker">Date:</label>
                         <input type=text id="datepicker">
+                        <br>
+                        <label class="radio-inline"><input type="radio" name="time-slot-1">8:30 - 12:30</label>
+                        <label class="radio-inline"><input type="radio" name="time-slot-1">1:00 - 5:00 PM</label>
+                        <br>
                         <!--Clicking on the button called Add Request calls myFunction.
                         myFunction adds the Date object selected to an array of Date objects,
                         sorts the array, and writes the sorted list sensibly to the page-->
                         <button onclick="sortParseAndWriteListOfDates()">Add Request</button>
-                        <br>
-                        <label class="radio-inline"><input type="radio" name="time-slot-1">8:30 - 12:30</label>
-                        <label class="radio-inline"><input type="radio" name="time-slot-2">1:00 - 5:00 PM</label>
             </div>
             <!--This is the right-middle column-->
             <div class="col-lg-3">
@@ -150,6 +151,7 @@
                 var dayOfWeek = days[dates[i].getDay()];
                 var monthOfYear = months[dates[i].getMonth()];
                 var theYear = dates[i].getFullYear();
+                var theHour = dates[i].getHours();
                 var string = dates[i].toString();
                 text += "<li>" + dayOfWeek + ' ' + monthOfYear + ' ' + dates[i].getDate() + ' ' + theYear + "</li>";
             }
