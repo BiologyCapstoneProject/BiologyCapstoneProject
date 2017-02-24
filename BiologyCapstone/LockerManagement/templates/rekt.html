@@ -144,10 +144,12 @@
         // parses them into Strings, and displays them in the format Friday February 17 2017
         function sortParseAndWriteListOfDates() {
             /*
-            var hora = 0;
-            var hourAndMinutes = document.getElementById("timeslot1");
+            var val = 0;
+            var hourAndMinutes = document.getElementsByName("time-slot-1");
             for (int i = 0; i < hourAndMinutes.length; i++){
-                hora = hourAndMinutes[i].value;
+                if hourAndMinutes[i].checked == true{
+                    val = hourAndMinutes[i].value;
+                }
             }
             
             console.log(hora);
