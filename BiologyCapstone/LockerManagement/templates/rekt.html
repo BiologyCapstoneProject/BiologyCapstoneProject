@@ -30,8 +30,8 @@
                         <label for="datepicker">Date:</label>
                         <input type=text id="datepicker">
                         <br>
-                        <label class="radio-inline"><input type="radio" name="time-slot-1" data-name="morning" checked="true">8:30 - 12:30</label>
-                        <label class="radio-inline"><input type="radio" name="time-slot-1" data-name="afternoon">1:00 - 5:00 PM</label>
+                        <label class="radio-inline"><input type="radio" name="time-slot-1">8:30 - 12:30</label>
+                        <label class="radio-inline"><input type="radio" name="time-slot-1">1:00 - 5:00 PM</label>
                         <br>
                         <!--Clicking on the button called Add Request calls myFunction.
                         myFunction adds the Date object selected to an array of Date objects,
@@ -143,6 +143,7 @@
         // This function adds selected Date objects to the dates list, calls a sorting method for them, 
         // parses them into Strings, and displays them in the format Friday February 17 2017
         function sortParseAndWriteListOfDates() {
+
             dates.push(picker.getDate());
             dates.sort(sort_dates);
             var numberOfDates = dates.length;
