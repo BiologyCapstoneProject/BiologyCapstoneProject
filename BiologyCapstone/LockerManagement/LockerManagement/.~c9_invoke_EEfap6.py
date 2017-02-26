@@ -25,7 +25,7 @@ SECRET_KEY = 'coo&kojk70xp_-)ytz86q!h%tz0ud@y@qyshj9j*m+iufjd8b$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0.8080', 'django-capstone-nil10.c9users.io']
+ALLOWED_HOSTS = ['8080']
 
 
 # Application definition
@@ -53,7 +53,7 @@ MIDDLEWARE_CLASSES = [
 ROOT_URLCONF = 'LockerManagement.urls'
 
 TEMPLATES = [
-    {
+    {cd 
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
@@ -120,10 +120,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-  
-]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
-#TEMPLATE_CONTEXT_PROCESSORS = [ 'django.core.context_processors.static']
+
+
