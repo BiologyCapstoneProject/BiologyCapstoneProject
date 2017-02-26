@@ -1,9 +1,9 @@
-# web/urls.py
+# templates/urls.py
 from django.conf.urls import  url
 
-from web_app.views import index
+from web_app.views import rekt
 
-app_name = 'web' 
+app_name = 'templates' 
 urlpatterns = [
-	url(r'^$', index, name='index'),
+	url(r'^$', rekt, name='rekt'),
 ]
