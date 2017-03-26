@@ -1,6 +1,6 @@
   {% load static %}
 <!DOCTYPE html>
-<html>
+<form method='POST' >{% csrf_token %}
 <head>
   
     <meta charset="utf-8">
@@ -33,7 +33,7 @@
             <div class="col-lg-3">
                         <p class="Prompt">Choose a rental date</p>
                         <label for="datepicker">Date:</label>
-                        <input type=text id="datepicker">
+                        <input readonly type=text id="datepicker">
                         <br>
                         <label class="radio-inline"><input type="radio" value="8" id="timeslot1" name="time-slot-1" checked="true">8:30 - 12:30</label>
                         <label class="radio-inline"><input type="radio" value="1" id="timeslot2" name="time-slot-1">1:00 - 5:00 PM</label>
@@ -41,7 +41,8 @@
                         <!--Clicking on the button called Add Request calls myFunction.
                         myFunction adds the Date object selected to an array of Date objects,
                         sorts the array, and writes the sorted list sensibly to the page-->
-                        <button onclick="sortParseAndWriteListOfDates()">Add Request</button>
+                        <button type="button"  onclick="sortParseAndWriteListOfDates()">Add Request</button>
+                        <button type="submit" name="date" >Submit Form</button>
             </div>
             <!--This is the right-middle column-->
             <div class="col-lg-3">
@@ -186,4 +187,4 @@
     </script>
     <script src="./static/js/bootstrap.min.js"></script>
 </body>
-</html>
+</form>
