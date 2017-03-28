@@ -9,9 +9,13 @@ def RequestView(request):
     if request.method == 'POST':
         print 'DID RETURN'
         form = RequestForm(request.POST)
-        
         date = request.POST.get('date', '')
-            
+        if form.is_valid():
+            form.save()
+        else:
+            return HttpResponse("Form Not Valid")
+        
+           
         return render(request, 'rekt.html', )
             
     else : 

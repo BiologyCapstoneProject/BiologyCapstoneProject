@@ -18,7 +18,6 @@ class Request(models.Model):
     date = models.DateField()
     reservation = models.CharField(max_length=70)
     
-    
     def _unicode_(self):
         return self.date, self.reservation
         
