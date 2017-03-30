@@ -7,15 +7,20 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 
 def RequestView(request):
     if request.method == 'POST':
-        print 'DID RETURN'
-        form = RequestForm(request.POST)
+        form = RequestForm(data=request.POST)
+        print 'Form: ', form
+        print 'Errors', form.errors
         date = request.POST.get('date', '')
+        reservation = request.POST.get('reservation', '')
+
+        print 'DATE: ', date
         if form.is_valid():
+            print "DID WORK"
             form.save()
+            return HttpResponseRedirect('rekt.html')
         else:
             return HttpResponse("Form Not Valid")
         
-           
         return render(request, 'rekt.html', )
             
     else : 

@@ -33,16 +33,16 @@
             <div class="col-lg-3">
                         <p class="Prompt">Choose a rental date</p>
                         <label for="datepicker">Date:</label>
-                        <input readonly type=text id="datepicker">
+                        <input readonly type="text" name="date" id="datepicker">
                         <br>
-                        <label class="radio-inline"><input type="radio" value="8" id="timeslot1" name="time-slot-1" checked="true">8:30 - 12:30</label>
-                        <label class="radio-inline"><input type="radio" value="1" id="timeslot2" name="time-slot-1">1:00 - 5:00 PM</label>
+                        <label class="radio-inline"><input type="radio" value="8" id="timeslot1" name="reservation" checked="true">8:30 - 12:30</label>
+                        <label class="radio-inline"><input type="radio" value="1" id="timeslot2" name="reservation">1:00 - 5:00 PM</label>
                         <br>
                         <!--Clicking on the button called Add Request calls myFunction.
                         myFunction adds the Date object selected to an array of Date objects,
                         sorts the array, and writes the sorted list sensibly to the page-->
                         <button type="button"  onclick="sortParseAndWriteListOfDates()">Add Request</button>
-                        <button type="submit" name="date" >Submit Form</button>
+                        <button type="submit">Submit Form</button>
             </div>
             <!--This is the right-middle column-->
             <div class="col-lg-3">
