@@ -15,8 +15,8 @@ class Student(models.Model):
         return self.full_name 
 
 class Request(models.Model):
-    date = models.CharField(max_length=25)
-    reservation = models.CharField(max_length=70)
+    date = models.CharField(max_length=25, default="Pick a date")
+    #reservation = models.CharField(max_length=70, default="Reservation")
     
     def _unicode_(self):
         return self.date, self.reservation

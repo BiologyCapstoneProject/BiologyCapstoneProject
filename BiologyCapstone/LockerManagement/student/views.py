@@ -11,13 +11,14 @@ def RequestView(request):
         print 'Form: ', form
         print 'Errors', form.errors
         date = request.POST.get('date', '')
-        reservation = request.POST.get('reservation', '')
+        #reservation = request.POST.get('reservation', '')
+        #print 'RESERVATION', reservation
 
         print 'DATE: ', date
         if form.is_valid():
             print "DID WORK"
             form.save()
-            return HttpResponseRedirect('rekt.html')
+            return HttpResponseRedirect('/')
         else:
             return HttpResponse("Form Not Valid")
         
