@@ -4,5 +4,6 @@ from .models import Request
 class RequestForm(forms.ModelForm):
         class Meta:
             model= Request
-            fields= ['date', ]
-            
+            fields= ['full_name', 'date', 'reservation', ]
+
+

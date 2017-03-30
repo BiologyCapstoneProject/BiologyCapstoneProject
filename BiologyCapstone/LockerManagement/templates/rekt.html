@@ -35,8 +35,8 @@
                         <label for="datepicker">Date:</label>
                         <input readonly type="text" name="date" id="datepicker">
                         <br>
-                        <label class="radio-inline"><input type="radio" value="8" id="timeslot1" name="reservation" checked="true">8:30 - 12:30</label>
-                        <label class="radio-inline"><input type="radio" value="1" id="timeslot2" name="reservation">1:00 - 5:00 PM</label>
+                        <label class="radio-inline"><input type="radio" value="8:30 - 12:30" id="timeslot1" name="reservation" checked="true">8:30 - 12:30</label>
+                        <label class="radio-inline"><input type="radio" value="1:00 - 5:00 PM" id="timeslot2" name="reservation">1:00 - 5:00 PM</label>
                         <br>
                         <!--Clicking on the button called Add Request calls sortParseAndWriteListOfDates.
                         sortParseAndWriteListOfDates adds the Date object selected to an array of Date objects,
@@ -46,13 +46,25 @@
             </div>
             <!--This is the right-middle column-->
             <div class="col-lg-3">
-                <p class="Prompt">Rental Agreement Form</p>
-                <label for="name_entry_box">Name:</label>
-                <input type="text" class="form-control" id="name_entry_box"><input>
-                <label for="phone_entry_box">Phone:</label>
-                <input type="text" class="form-control" id="phone_entry_box"><input>
-                <label for="eamil_entry_box">email:</label>
-                <input type="text" class="form-control" id="eamil_entry_box"><input>
+                <div class = "row">
+                    <p class="Prompt">Rental Agreement Form</p>
+                    <label for="name_entry_box"><strong>Name:</strong></label>
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" id="name_entry_box" name="full_name"></input>
+                    </div>
+                </div>    
+                <div class = "row">    
+                    <label for="phone_entry_box"><strong>Phone:</strong></label>
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" id="phone_entry_box"></input>
+                    </div>
+                </div>
+                <div class = "row"
+                    <label for="eamil_entry_box"><strong>email:</strong></label>
+                    <div class="col-lg-12">
+                        <input type="text" class="form-control" id="eamil_entry_box"></input>
+                    </div>
+                </div>    
             </div>
             <!--This is the right-most column-->
             <!--The text in this column was adapted from Ms. Rodriguez's paper form-->
@@ -69,7 +81,6 @@
                 <strong>reservations must be placed one buisiness day in advance (M-F).</strong></p>
                 <p class="Agreement"><strong>Equipment may not be reserved for Saturday, Sundays, or Holidays.</strong></p>
                 <p class="Agreement"><strong>Requests for Mondays must be placed before 12 noon the previous friday.</strong></p>
-                -->
                 <p class="Agreement"><strong>Before leaving for your study lake, </strong>
                 retrieve sample bottles from the Ecology lab and fill the bottles with the appropriate fixative solutions. 
                 Fill cooler with ice.</p>

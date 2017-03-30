@@ -6,13 +6,14 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 
 
 def RequestView(request):
+    ### Put time stamp in database
     if request.method == 'POST':
         form = RequestForm(data=request.POST)
         print 'Form: ', form
         print 'Errors', form.errors
         date = request.POST.get('date', '')
-        #reservation = request.POST.get('reservation', '')
-        #print 'RESERVATION', reservation
+        reservation = request.POST.get('reservation', '')
+        print 'RESERVATION', reservation
 
         print 'DATE: ', date
         if form.is_valid():
@@ -28,3 +29,4 @@ def RequestView(request):
         form = RequestForm()
     
     return render(request, 'rekt.html')
+    
