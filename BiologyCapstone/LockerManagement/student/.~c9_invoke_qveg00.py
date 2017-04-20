@@ -40,6 +40,8 @@ def get_dates_for_user(requests_by_name):
             strings_to_ship.append(string_to_ship)
             
         return strings_to_ship
+        for string in strings_to_ship:
+            print string
 
 def RequestView(request):
     global json_dates
@@ -64,10 +66,11 @@ def RequestView(request):
             dates_list = get_dates_for_user(requests_by_name)
             #json_dates = json.dumps(requests_by_name[0])
             dates_dict = {}
-            dstr = 'date'
             for i, date in enumerate(dates_list):
-                dates_dict[(dstr + str(i))] = dates_list[i]
+                dates_dict[str(i)] = dates_list[i]
             json_dates = json.dumps(dates_dict)
+            print json_dates
+            #return render(request, 'rekt.html', {'dates_list': dates_list})
                 
             count_am = 0
             count_pm = 0

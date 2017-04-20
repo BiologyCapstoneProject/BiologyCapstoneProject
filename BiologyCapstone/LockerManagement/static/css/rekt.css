@@ -1,5 +1,19 @@
+
+@import url("bootstrap.min.css");
+@import url("bootstrap-theme.css");
+
 body {
-    background-color: white;
+    /*background-image: url("../images/wildlifefoxes5.jpg");*/
+    /*background-repeat: no-repeat;*/
+    /*height: 400px;*/
+    /*width: 400px;*/
+    
+  background: url("../images/resting_fox.jpg") no-repeat; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
 }
 
 h1 {
@@ -9,6 +23,7 @@ h1 {
     background: -o-linear-gradient(#1a4195, #0c2647); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(#1a4195, #0c2647); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#1a4195, #0c2647); /* Standard syntax */
+    border-radius: 15px;
     text-align: center;
     font-family: "Open Sans", Open Sans, sans-serif;
     font-size: 2em;
@@ -17,7 +32,29 @@ h1 {
     color: #fbb731;
 }
 
-p {
+.modal-body {
+  background-size: cover;
+}
+
+.btn-default {
+    background-color: #0c2647;
+    background: -webkit-linear-gradient(#1a4195, #0c2647); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#1a4195, #0c2647); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#1a4195, #0c2647); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#1a4195, #0c2647); /* Standard syntax */
+    color:  #fbb731;
+}
+
+
+.btn-default:hover, .btn-default:visited{ 
+     background-color: #0c2647;
+    background: -webkit-linear-gradient(#1a4195, #0c2647); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#1a4195, #0c2647); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#1a4195, #0c2647); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#1a4195, #0c2647); /* Standard syntax */
+    color: #fbb731;
+}
+.p {
     font-family: "Open Sans", Open Sans, sans-serif;
     font-size: 1em;
 }
@@ -45,3 +82,4 @@ p {
 .Important{
     font-size: 1.15em;
 }
+

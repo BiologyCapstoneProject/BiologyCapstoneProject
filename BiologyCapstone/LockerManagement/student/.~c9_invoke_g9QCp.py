@@ -15,6 +15,16 @@ class Request(models.Model):
     phone_num = models.CharField(max_length=10, default="Phone ")
     timestamp = models.DateTimeField(default=datetime.now() , editable=True)
     
+    class meta:
+        verbose_name= "full name",
+    def _unicode_(self):
+        return self.full_name,self.date, self.reservation, self.timestamp,
+        
+    # def _str_(self):
+    #     return self.full_name, self.date, self.reservation, self.timestamp,
     
-    
-    
+class Request
+    def request(self, obj) :
+         """My Custom Title"""
+    ...
+        request.short_description = 'full name'

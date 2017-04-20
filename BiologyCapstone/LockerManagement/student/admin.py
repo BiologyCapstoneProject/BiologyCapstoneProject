@@ -5,7 +5,7 @@ from django.contrib import admin
 from student.models import Request
 
 class RequestModelAdmin(admin.ModelAdmin):
-    class Meta:
-        model = Request
+    list_display = ('full_name', 'email', 'reservation', 'date')
+    search_fields = ('full_name', 'email', 'reservation', 'date')
 
 admin.site.register(Request, RequestModelAdmin)

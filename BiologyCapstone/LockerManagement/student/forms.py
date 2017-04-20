@@ -5,5 +5,3 @@ class RequestForm(forms.ModelForm):
         class Meta:
             model= Request
             fields= ['full_name', 'date', 'reservation', 'email', 'phone_num']
-
-

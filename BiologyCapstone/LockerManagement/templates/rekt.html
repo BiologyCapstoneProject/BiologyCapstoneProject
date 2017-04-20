@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <form method='POST' >{% csrf_token %}
+{{form}}
 <head>
   
     <meta charset="utf-8">
@@ -11,26 +12,52 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href= '{% static "css/rekt.css" %} ' /> 
     <link rel="stylesheet" href= '{% static "css/pikaday.css" %}'/>
-  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+        
+      $('#myModal').modal({
+        backdrop: false
+      })
+
+    });
+    
+    $(document).ready(function() {
+    $('.btn btn-default').attr('disabled',true);
+    $('#name_entry_box').keyup(function(){
+        if($(this).val().length !=0)
+            $('.btn btn-default').attr('disabled', false);            
+        else
+            $('.btn btn-default').attr('disabled',true);
+    })
+});
+
+    
+
+</script>
+   
 </head>
 <body>
+    
+    
 
     </style>
-    <div class="container">
+    <div class="container" >
         <div class="row">
             <div class="col-lg-12">
                 <h1>Biology Department Equipment Rentals</h1>
             </div>
-        </div>
+       </div>
+   
         <div class="row">
             <!--This is the left-most column-->
-            <div class="col-lg-3">
-                <p class="Requests">Your Scheduled Rental Dates</p>
+            <div class="col-lg-4">
                 <ol id="demo"></ol>
                 <p id="demos"></p>
             </div>
             <!--This is the left-middle column-->
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                         <p class="Prompt">Choose a rental date</p>
                         <label for="datepicker">Date:</label>
                         <input readonly type="text" name="date" id="datepicker">
@@ -41,57 +68,41 @@
                         <!--Clicking on the button called Add Request calls sortParseAndWriteListOfDates.
                         sortParseAndWriteListOfDates adds the Date object selected to an array of Date objects,
                         sorts the array, and writes the sorted list sensibly to the page-->
-                        <button type="button" onclick="sortParseAndWriteListOfDates()">Add Request</button>
-                        <button type="submit" onclick="submit()">Submit Form</button>
+                        <button type="button" class="btn btn-default" onclick="sortParseAndWriteListOfDates()">Add Request</button>
+                        <button type="submit" class="btn btn-default" onclick="submit()">Submit Form</button>
             </div>
+
             <!--This is the right-middle column-->
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                 <div class = "row">
                     <p class="Prompt">Rental Agreement Form</p>
                     <label for="name_entry_box"><strong>Name:</strong></label>
                     <div class="col-lg-12">
-                        <input type="text" class="form-control" id="name_entry_box" name="full_name"></input>
+                        <input type="text" class="form-control" id="name_entry_box" name="full_name" required></input>
                     </div>
                 </div>    
                 <div class = "row">    
                     <label for="phone_entry_box"><strong>Phone:</strong></label>
                     <div class="col-lg-12">
-                        <input type="text" class="form-control" name="phone_num" id="phone_entry_box"></input>
+                        <input type="text" class="form-control" name="phone_num" id="phone_entry_box" required></input>
                     </div>
                 </div>
                 <div class = "row"
                     <label for="eamil_entry_box"><strong>Email:</strong></label>
                     <div class="col-lg-12">
-                        <input type="text" class="form-control" name="email" id="eamil_entry_box"></input>
+                        <input type="text" class="form-control" name="email" id="email_entry_box" required></input>
                     </div>
                 </div>    
             </div>
+
             <!--This is the right-most column-->
             <!--The text in this column was adapted from Ms. Rodriguez's paper form-->
-            <div class="col-lg-3">
-                <p class="Prompt">Rental Agreement</p>
-                <p class="Agreement">By requesting a rental date, you understand that you are 
-                responsible for all equipment checked out. You will pay for repair or replacement 
-                of any lost or damaged items.</p>
-                <p class="Important"><strong>Very Important Information</strong></p>
-                <!--I have commented out the following rules, because I have implemented this logic in a javascript function.
-                If Ms. Rodriguez would like to show these rules, we can uncomment them-->
-                <p class="Agreement">Equipment and supplies will be reserved on a <strong>first-come, first-served basis.</strong></p>
-                <p class="Agreement">In order to give us time to prepare the equipment and supplies, 
-                <strong>reservations must be placed one buisiness day in advance (M-F).</strong></p>
-                <p class="Agreement"><strong>Equipment may not be reserved for Saturday, Sundays, or Holidays.</strong></p>
-                <p class="Agreement"><strong>Requests for Mondays must be placed before 12 noon the previous friday.</strong></p>
-                <p class="Agreement"><strong>Before leaving for your study lake, </strong>
-                retrieve sample bottles from the Ecology lab and fill the bottles with the appropriate fixative solutions. 
-                Fill cooler with ice.</p>
-                <p class="Agreement"><strong>After returning from your study lake, </strong>filter your 1L water sample and 
-                store the filter and filtrate in the freezer in the Ecology lab.</p>
-            </div>
+        
         </div>
-        <!--This section includes attribution to Dave Bushell, the creator of pikaday, with links to his Pikaday GitHub page-->
-        <p class="Attribution">Pikaday was created by Dave Bushell. Access his <a href="https://github.com/dbushell/Pikaday">GitHub page</a></p>
-        <p class="Attribution">Copyright © 2014 <a href="http://dbushell.com/">David Bushell</a> | BSD &amp; MIT license</p>
-    </div>
+        </div>
+        
+       
+   
 
     <script src='{% static "js/pikaday.js" %}'></script>
     
@@ -148,9 +159,26 @@
     function submit() {
         document.getElementByName('Submit Form').disabled = true;
         document.getElementByName('Add Request').disabled = false;
+        var the_dates = {{dates_list|safe}}
+        var text = "<ol>";
+        for(i = 0; i < the_dates.length(); i++){
+            text += "<li>" + the_dates[i] + "<li>";
+        }
+        text += "</ol>"
+        document.getElementById('demos').innerHTML = text;
     }
     </script>
     
+    <script>
+        function writeListOfDates() {
+            var text = "<ol>";
+            for(i = 0; i < list_of_dates.length(); i++){
+                text += "<li>" + list_of_dates[i] + "<li>";
+            }
+            text += "</ol>"
+            document.getElementById('demos').innerHTML = text;
+        }
+    </script>
     
     <script>
         // This function sorts dates in ascending order.
@@ -187,5 +215,50 @@
         }
     </script>
     <script src="./static/js/bootstrap.min.js"></script>
+
+
+<!-- Trigger the modal with a button -->
+<!--- <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+<!-- Modal -->
+<div id="myModal" class="modal alert" role="alert">
+  <div class="modal-alert">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <!--- <button type="button" class="close" data-dismiss="modal">&times;</button>--->
+        <h4 class="modal-title">Locker Rental Agreement</h4>
+      </div>
+      <div class="modal-body">
+       <p class="Agreement">By requesting a rental date, you understand that you are 
+                responsible for all equipment checked out. You will pay for repair or replacement 
+                of any lost or damaged items.</p>
+                <p class="Important"><strong>Very Important Information</strong></p>
+                <!--I have commented out the following rules, because I have implemented this logic in a javascript function.
+                If Ms. Rodriguez would like to show these rules, we can uncomment them-->
+                <p class="Agreement">Equipment and supplies will be reserved on a <strong>first-come, first-served basis.</strong></p>
+                <p class="Agreement">In order to give us time to prepare the equipment and supplies, 
+                <strong>reservations must be placed one buisiness day in advance (M-F).</strong></p>
+                <p class="Agreement"><strong>Equipment may not be reserved for Saturday, Sundays, or Holidays.</strong></p>
+                <p class="Agreement"><strong>Requests for Mondays must be placed before 12 noon the previous friday.</strong></p>
+                <p class="Agreement"><strong>Before leaving for your study lake, </strong>
+                retrieve sample bottles from the Ecology lab and fill the bottles with the appropriate fixative solutions. 
+                Fill cooler with ice.</p>
+                <p class="Agreement"><strong>After returning from your study lake, </strong>filter your 1L water sample and 
+                store the filter and filtrate in the freezer in the Ecology lab.</p>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">I AGREE TO THESE TERMS</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 </body>
+<!--This section includes attribution to Dave Bushell, the creator of pikaday, with links to his Pikaday GitHub page-->
+        <p class="footer" >Pikaday was created by Dave Bushell. Access his <a href="https://github.com/dbushell/Pikaday">GitHub page</a></p>
+        <p class="footer">Copyright © 2014 <a href="http://dbushell.com/">David Bushell</a> | BSD &amp; MIT license</p>
 </form>

@@ -11,6 +11,7 @@ from student import views
 
 urlpatterns = [
     url(r'^$', views.RequestView, name='request'),
+    url(r'^thanks/', views.SubmissionView, name='request'),
     url(r'^admin/', admin.site.urls),
     
    

@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0.8080', 'django-capstone-nil10.c9users.io']
 
+#EMAIL_HOST = 'smtp.mail.yahoo.com'
+
+#EMAIL_PORT = 587
+#EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_HOST_USER='nlheureux12@yahoo.com '
+#EMAIL_HOST_PASSWORD='!42N18i14l'
+#EMAIL_USE_TLS=True
 
 # Application definition
 
