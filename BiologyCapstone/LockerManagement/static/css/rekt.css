@@ -66,7 +66,8 @@ h1 {
     border-style: solid;
     border-color: #1a4195;
 }
-
+/*http://thestizmedia.com/radio-buttons-as-toggle-buttons-with-css/
+*/
 .switch-field {
   font-family: "Lucida Grande", Tahoma, Verdana, sans-serif;
   padding-top: 10px;
@@ -176,3 +177,8 @@ h1 {
     text-align:center;
     background-color: transparent;
 }
+
+input[disabled="disabled"] {
+  pointer-event: auto;
+}
+

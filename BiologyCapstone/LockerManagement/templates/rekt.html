@@ -65,9 +65,10 @@
                 <div class = "row">
                         <p class="Prompt">Choose A Rental Date</p>
                         <label class= "date" for="datepicker">Date:</label>
-                        <input readonly type="text" name="date" id="datepicker">
+                        <input  name="date" id="datepicker" required onkeypress="return false;"/>
                         <br>
                         
+        <!--http://thestizmedia.com/radio-buttons-as-toggle-buttons-with-css/-->
         <div class="switch-field">
           <input type="radio" id="switch_left" name="reservation" value="8:30 - 12:30" checked/>
           <label for="switch_left">8:30 - 12:30PM</label>
