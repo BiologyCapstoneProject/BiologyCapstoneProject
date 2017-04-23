@@ -23,9 +23,56 @@
             </div>
        </div>
        <script>
+        var sort_dates = function(date1, date2){
+            if(date1 > date2) return 1;
+            if(date1 < date2) return -1;
+            return 0;
+        };
+        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var fullMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         var jsonObject = JSON.parse('{{dates_json_strings | escapejs}}');
+        
         console.log(jsonObject);
-        document.getElementById("textelement").innerHTML = jsonObject;
+        console.log("parsed JSON");
+        var listOfDates = [];
+        for (var key in jsonObject) {
+            if (jsonObject.hasOwnProperty(key)) {
+                console.log("looping")
+                listOfDates.push(jsonObject[key])
+            }
+        }
+        console.log(listOfDates);
+        var listOfDateObjects = [];
+        for(i = 0; i < listOfDates.length; i++){
+            var theList = listOfDates[i].split(" ");
+            aDate = new Date();
+            aDate.setMonth(months.indexOf(theList[1]));
+            aDate.setYear(parseInt(theList[3]));
+            aDate.setDate(parseInt(theList[2]));
+            aDate.setHours(parseInt(theList[4][0]) + 12);
+            listOfDateObjects.push(aDate);
+            console.log(i);
+        }
+        listOfDateObjects.sort(sort_dates);
+
+        var text = "<ol>";
+        for(i = 0; i < listOfDateObjects.length; i++){
+            var dayOfWeek = days[listOfDateObjects[i].getDay()];
+            var monthOfYear = fullMonths[listOfDateObjects[i].getMonth()];
+            var theYear = listOfDateObjects[i].getFullYear();
+            var theHour = listOfDateObjects[i].getHours();
+            var string = listOfDateObjects[i].toString();
+            text += "<li>" + dayOfWeek + ' ' + monthOfYear + ' ' + dates[i].getDate() + ' ' + theYear + "</li>";
+            console.log(i);
+        }
+        text += "</ol>";
+        console.log ("text is: ");
+        console.log(text);
+        document.getElementById('textelement').innerHTML = text;
+        console.log("testing list");
+
+        //document.getElementById("textelement").innerHTML = listOfDates;
         
         </script>
        

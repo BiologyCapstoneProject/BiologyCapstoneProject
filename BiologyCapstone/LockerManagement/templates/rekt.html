@@ -1,7 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
+
+
 <form method='POST' >{% csrf_token %}
-{{form}}
+
+
 <head>
   
     <meta charset="utf-8">
@@ -20,11 +23,12 @@
       $('#myModal').modal({
         backdrop: false
       })
-
+     
+    
     });
     
     $(document).ready(function() {
-    $('.btn btn-default').attr('disabled',true);
+    $('.btn btn-modal').attr('disabled',true);
     $('#name_entry_box').keyup(function(){
         if($(this).val().length !=0)
             $('.btn btn-default').attr('disabled', false);            
@@ -58,39 +62,54 @@
             </div>
             <!--This is the left-middle column-->
             <div class="col-lg-4">
-                        <p class="Prompt">Choose a rental date</p>
-                        <label for="datepicker">Date:</label>
+                <div class = "row">
+                        <p class="Prompt">Choose A Rental Date</p>
+                        <label class= "date" for="datepicker">Date:</label>
                         <input readonly type="text" name="date" id="datepicker">
                         <br>
-                        <label class="radio-inline"><input type="radio" value="8:30 - 12:30" id="timeslot1" name="reservation" checked="true">8:30 - 12:30</label>
-                        <label class="radio-inline"><input type="radio" value="1:00 - 5:00 PM" id="timeslot2" name="reservation">1:00 - 5:00 PM</label>
+                        
+        <div class="switch-field">
+          <input type="radio" id="switch_left" name="reservation" value="8:30 - 12:30" checked/>
+          <label for="switch_left">8:30 - 12:30PM</label>
+          <input type="radio" id="switch_right" name="reservation" value="1:00 - 5:00 PM"/>
+          <label for="switch_right">1:00 - 5:00PM</label>
+        </div>
                         <br>
                         <!--Clicking on the button called Add Request calls sortParseAndWriteListOfDates.
                         sortParseAndWriteListOfDates adds the Date object selected to an array of Date objects,
                         sorts the array, and writes the sorted list sensibly to the page-->
-                        <button type="button" class="btn btn-default" onclick="sortParseAndWriteListOfDates()">Add Request</button>
-                        <button type="submit" class="btn btn-default" onclick="submit()">Submit Form</button>
-            </div>
-
+                        <button  type="button" class="btn btn-default" onclick="sortParseAndWriteListOfDates()">Add Request</button>
+                        <button id="submit" type="submit" class="btn btn-default" onclick="submit()">Submit Form</button>
+            </div> </div>
             <!--This is the right-middle column-->
+            {{form}}
             <div class="col-lg-4">
                 <div class = "row">
                     <p class="Prompt">Rental Agreement Form</p>
-                    <label for="name_entry_box"><strong>Name:</strong></label>
-                    <div class="col-lg-12">
-                        <input type="text" class="form-control" id="name_entry_box" name="full_name" required></input>
+                    <label class="name" for="name_entry_box"><strong>Name:</strong></label>
+                    <div class="col-lg-12">  
+                     {% if form.errors %}
+                            {{form.full_name.validators}} 
+                     {% endif %}
+                        <input type="text" class="form-control" id="name_entry_box" name="full_name"required placeholder="Full Name" ></input>
+                          {% if form.errors %}
+                        <div class="text-danger">Please correct the error{{ form.errors|pluralize }} below.</div>
+                            {% endif %}
                     </div>
                 </div>    
                 <div class = "row">    
-                    <label for="phone_entry_box"><strong>Phone:</strong></label>
+                    <label class = "phone" for="phone_entry_box"><strong>Phone:</strong></label>
                     <div class="col-lg-12">
-                        <input type="text" class="form-control" name="phone_num" id="phone_entry_box" required></input>
+                        <input type="text" class="form-control" name="phone_num" id="phone_entry_box" required placeholder="Phone Number"></input>
                     </div>
                 </div>
-                <div class = "row"
-                    <label for="eamil_entry_box"><strong>Email:</strong></label>
+                <div class = "row">
+                    <label class="email" for="eamil_entry_box"><strong>Email:</strong></label>
                     <div class="col-lg-12">
-                        <input type="text" class="form-control" name="email" id="email_entry_box" required></input>
+                   <!--- {% if form.errors %}
+                            {{form.validator}}
+                     {% endif %} --->
+                        <input type="text" class="form-control" name="email" id="email_entry_box" required placeholder= "Valid Rollins Email Address" pattern= "[a-zA-Z0-9_]+@rollins.edu"></input>
                     </div>
                 </div>    
             </div>
@@ -221,6 +240,7 @@
 <!--- <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
 <!-- Modal -->
+
 <div id="myModal" class="modal alert" role="alert">
   <div class="modal-alert">
 
@@ -250,15 +270,19 @@
         
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">I AGREE TO THESE TERMS</button>
+        <button type="button" class="btn btn-modal" data-dismiss="modal">I AGREE TO THESE TERMS</button>
       </div>
     </div>
 
   </div>
 </div>
 
-</body>
 <!--This section includes attribution to Dave Bushell, the creator of pikaday, with links to his Pikaday GitHub page-->
-        <p class="footer" >Pikaday was created by Dave Bushell. Access his <a href="https://github.com/dbushell/Pikaday">GitHub page</a></p>
-        <p class="footer">Copyright © 2014 <a href="http://dbushell.com/">David Bushell</a> | BSD &amp; MIT license</p>
+        <div class="panel-footer" >
+            Pikaday was created by Dave Bushell. Access his <a href="https://github.com/dbushell/Pikaday">GitHub page</a>
+        <br>
+        Copyright © 2014 <a href="http://dbushell.com/">David Bushell</a> | BSD &amp; MIT license
+        </div>
+   
+</body> 
 </form>

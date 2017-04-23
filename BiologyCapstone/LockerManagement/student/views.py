@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from datetime import datetime
 from django.core.mail import EmailMessage
 import json
+from django.core.exceptions import ValidationError
+
 
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
@@ -44,11 +46,11 @@ def get_dates_for_user(requests_by_name):
 def RequestView(request):
     global json_dates
     dates_list = []
-    
+
     if request.method == 'POST':
         # email = EmailMessage('Hello everyone', 'World', to=['nghaberman@gmail.com'])
         # email.send()
-
+        
         form = RequestForm(data=request.POST)
         date = request.POST.get('date', '')
         reservation = request.POST.get('reservation', '')
@@ -56,7 +58,7 @@ def RequestView(request):
         email = request.POST.get('email', '')
         phone_num = request.POST.get('phone_num', '')
         timestamp = request.POST.get(datetime.now())
-
+    
         if form.is_valid():
             form.save()
             requests_by_name = Request.objects.all().filter(full_name=str(full_name)).values()
@@ -81,10 +83,11 @@ def RequestView(request):
                 
             
             return HttpResponseRedirect('/thanks')
-
+        
     else: 
         form = RequestForm()
     #return render(request, 'rekt.html', {'dates_list': dates_list})
+
     return render(request, 'rekt.html')
     
     
