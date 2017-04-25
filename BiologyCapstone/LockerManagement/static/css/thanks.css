@@ -1,3 +1,6 @@
+@import url("bootstrap.min.css");
+@import url("bootstrap-theme.css");
+
 body {
     /*background-image: url("../images/wildlifefoxes5.jpg");*/
     /*background-repeat: no-repeat;*/
@@ -8,9 +11,19 @@ body {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-  
+  background-attachment: fixed;
+ 
+}
 
+
+@media (min-width: 320px) and (max-width:600px){
+    body{
+        background: url('../images/tree_frog.jpg') no-repeat;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-attachment: fixed;
+    }
 }
 
 h1 {
@@ -27,6 +40,7 @@ h1 {
     padding-bottom: 5%;
     padding-top: 5%;
     color: #fbb731;
+    
 }
 
 .ul{
@@ -34,3 +48,5 @@ h1 {
     
     
 }
+
+

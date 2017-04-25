@@ -64,8 +64,8 @@
             <div class="col-lg-4">
                 <div class = "row">
                         <p class="Prompt">Choose A Rental Date</p>
-                        <label class= "date" for="datepicker">Date:</label>
-                        <input  name="date" id="datepicker" required onkeypress="return false;"/>
+                        
+                        <input  class="form-control" name="date" id="datepicker" required onkeypress="return false;"/>
                         <br>
                         
         <!--http://thestizmedia.com/radio-buttons-as-toggle-buttons-with-css/-->
@@ -79,7 +79,7 @@
                         <!--Clicking on the button called Add Request calls sortParseAndWriteListOfDates.
                         sortParseAndWriteListOfDates adds the Date object selected to an array of Date objects,
                         sorts the array, and writes the sorted list sensibly to the page-->
-                        <button  type="button" class="btn btn-default" onclick="sortParseAndWriteListOfDates()">Add Request</button>
+                <!--        <button  type="button" class="btn btn-default" onclick="sortParseAndWriteListOfDates()">Add Request</button> -->
                         <button id="submit" type="submit" class="btn btn-default" onclick="submit()">Submit Form</button>
             </div> </div>
             <!--This is the right-middle column-->
@@ -92,7 +92,7 @@
                      {% if form.errors %}
                             {{form.full_name.validators}} 
                      {% endif %}
-                        <input type="text" class="form-control" id="name_entry_box" name="full_name"required placeholder="Full Name" ></input>
+                        <input type="text" class="form-control" id="name_entry_box" name="full_name"required placeholder="Tommy Tar" ></input>
                           {% if form.errors %}
                         <div class="text-danger">Please correct the error{{ form.errors|pluralize }} below.</div>
                             {% endif %}
@@ -101,7 +101,7 @@
                 <div class = "row">    
                     <label class = "phone" for="phone_entry_box"><strong>Phone:</strong></label>
                     <div class="col-lg-12">
-                        <input type="text" class="form-control" name="phone_num" id="phone_entry_box" required placeholder="Phone Number"></input>
+                        <input type="text" class="form-control" name="phone_num" id="phone_entry_box" required placeholder="XXX-XXX-XXXX"></input>
                     </div>
                 </div>
                 <div class = "row">
@@ -110,7 +110,7 @@
                    <!--- {% if form.errors %}
                             {{form.validator}}
                      {% endif %} --->
-                        <input type="text" class="form-control" name="email" id="email_entry_box" required placeholder= "Valid Rollins Email Address" pattern= "[a-zA-Z0-9_]+@rollins.edu"></input>
+                        <input type="text" class="form-control" name="email" id="email_entry_box" required placeholder= "TommyTar@rollins.edu" pattern= "[a-zA-Z0-9_]+@rollins.edu"></input>
                     </div>
                 </div>    
             </div>
@@ -176,6 +176,8 @@
     </script>
     
     <script>
+    //NOTE: For some reason, var the_dates shows in up chrome console as
+    // "var the_dates = ". Not sure why {{dates_list|safe}} isn't showing
     function submit() {
         document.getElementByName('Submit Form').disabled = true;
         document.getElementByName('Add Request').disabled = false;
@@ -188,6 +190,7 @@
         document.getElementById('demos').innerHTML = text;
     }
     </script>
+    
     
     <script>
         function writeListOfDates() {
@@ -262,7 +265,7 @@
                 <p class="Agreement">In order to give us time to prepare the equipment and supplies, 
                 <strong>reservations must be placed one buisiness day in advance (M-F).</strong></p>
                 <p class="Agreement"><strong>Equipment may not be reserved for Saturday, Sundays, or Holidays.</strong></p>
-                <p class="Agreement"><strong>Requests for Mondays must be placed before 12 noon the previous friday.</strong></p>
+                <p class="Agreement"><strong>Requests for Mondays must be placed before 12 noon the previous Friday.</strong></p>
                 <p class="Agreement"><strong>Before leaving for your study lake, </strong>
                 retrieve sample bottles from the Ecology lab and fill the bottles with the appropriate fixative solutions. 
                 Fill cooler with ice.</p>
