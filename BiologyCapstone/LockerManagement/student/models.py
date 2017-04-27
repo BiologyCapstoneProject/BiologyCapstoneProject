@@ -13,6 +13,7 @@ class Request(models.Model):
     reservation = models.CharField(max_length=70, default="Reservation")
     email = models.CharField(max_length=70, default="Email")
     phone_num = models.CharField(max_length=10, default="Phone ")
+    true_date = models.DateTimeField(default=datetime.now() , editable=True)
     timestamp = models.DateTimeField(default=datetime.now() , editable=True)
     
     

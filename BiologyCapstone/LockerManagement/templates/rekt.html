@@ -15,9 +15,11 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href= '{% static "css/rekt.css" %} ' /> 
     <link rel="stylesheet" href= '{% static "css/pikaday.css" %}'/>
+    <link rel="icon" type="image/x-icon" href="../images/froffavicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
+    
      $(document).ready(function(){
         
       $('#myModal').modal({
@@ -56,35 +58,14 @@
    
         <div class="row">
             <!--This is the left-most column-->
-            <div class="col-lg-4">
+            <div class="col-lg-2">
                 <ol id="demo"></ol>
                 <p id="demos"></p>
             </div>
+            
             <!--This is the left-middle column-->
-            <div class="col-lg-4">
-                <div class = "row">
-                        <p class="Prompt">Choose A Rental Date</p>
-                        
-                        <input  class="form-control" name="date" id="datepicker" required onkeypress="return false;"/>
-                        <br>
-                        
-        <!--http://thestizmedia.com/radio-buttons-as-toggle-buttons-with-css/-->
-        <div class="switch-field">
-          <input type="radio" id="switch_left" name="reservation" value="8:30 - 12:30" checked/>
-          <label for="switch_left">8:30 - 12:30PM</label>
-          <input type="radio" id="switch_right" name="reservation" value="1:00 - 5:00 PM"/>
-          <label for="switch_right">1:00 - 5:00PM</label>
-        </div>
-                        <br>
-                        <!--Clicking on the button called Add Request calls sortParseAndWriteListOfDates.
-                        sortParseAndWriteListOfDates adds the Date object selected to an array of Date objects,
-                        sorts the array, and writes the sorted list sensibly to the page-->
-                <!--        <button  type="button" class="btn btn-default" onclick="sortParseAndWriteListOfDates()">Add Request</button> -->
-                        <button id="submit" type="submit" class="btn btn-default" onclick="submit()">Submit Form</button>
-            </div> </div>
-            <!--This is the right-middle column-->
             {{form}}
-            <div class="col-lg-4">
+            <div class="col-lg-6">
                 <div class = "row">
                     <p class="Prompt">Rental Agreement Form</p>
                     <label class="name" for="name_entry_box"><strong>Name:</strong></label>
@@ -115,8 +96,31 @@
                 </div>    
             </div>
 
-            <!--This is the right-most column-->
+            <!--This is the left-most column-->
             <!--The text in this column was adapted from Ms. Rodriguez's paper form-->
+            
+            <!--This is the right-middle column-->
+            <div class="col-lg-4">
+                <div class = "row">
+                        <p class="Prompt">Choose A Rental Date</p>
+                        
+                        <input  class="form-control" name="date" id="datepicker" required onkeypress="return false;"/>
+                        <br>
+                        
+        <!--http://thestizmedia.com/radio-buttons-as-toggle-buttons-with-css/-->
+        <div class="switch-field">
+          <input type="radio" id="switch_left" name="reservation" value="8:30 - 12:30" checked/>
+          <label for="switch_left">8:30 - 12:30PM</label>
+          <input type="radio" id="switch_right" name="reservation" value="1:00 - 5:00 PM"/>
+          <label for="switch_right">1:00 - 5:00PM</label>
+        </div>
+                        <br>
+                        <!--Clicking on the button called Add Request calls sortParseAndWriteListOfDates.
+                        sortParseAndWriteListOfDates adds the Date object selected to an array of Date objects,
+                        sorts the array, and writes the sorted list sensibly to the page-->
+                <!--        <button  type="button" class="btn btn-default" onclick="sortParseAndWriteListOfDates()">Add Request</button> -->
+                        <button id="submit" type="submit" class="btn btn-default" onclick="submit()">Submit Form</button>
+            </div> </div>
         
         </div>
         </div>

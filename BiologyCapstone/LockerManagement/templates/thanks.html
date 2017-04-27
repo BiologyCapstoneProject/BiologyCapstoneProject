@@ -61,9 +61,19 @@
             var dayOfWeek = days[listOfDateObjects[i].getDay()];
             var monthOfYear = fullMonths[listOfDateObjects[i].getMonth()];
             var theYear = listOfDateObjects[i].getFullYear();
-            var theHour = listOfDateObjects[i].getHours();
+            var theHour = listOfDateObjects[i].getHours() - 12;
+            var min = 99;
+            var meridian = 'PM';
+            if (theHour == 8){
+                min = 30;
+                meridian = 'AM';
+            }
+            else {
+                meridian = 'PM';
+                min = 00;
+            }
             var string = listOfDateObjects[i].toString();
-            text += "<li>" + dayOfWeek + ' ' + monthOfYear + ' ' + listOfDateObjects[i].getDate() + ' ' + theYear + ' ' + theHour + ':' + "</li>";
+            text += "<li>" + dayOfWeek + ', ' + monthOfYear + ' ' + listOfDateObjects[i].getDate() + ' ' + theYear + ' ' + theHour + ':' + min + ' ' + meridian + "</li>";
             console.log(i);
         }
         text += "</ol>";

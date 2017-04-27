@@ -58,12 +58,12 @@ def RequestView(request):
         email = request.POST.get('email', '')
         phone_num = request.POST.get('phone_num', '')
         timestamp = request.POST.get(datetime.now())
-        true_date = request.POST.get('date', '')
+        true_date = request.POST.get(date)
         
     
         if form.is_valid():
             form.save()
-            requests_by_name = Request.objects.all().filter(full_name=str(full_name)).values()
+        true_date = request.POST.get('true_d)
             requests_by_given_time = Request.objects.all().filter(date=str(date), reservation=str(reservation)).values()
             dates_list = get_dates_for_user(requests_by_name)
             #json_dates = json.dumps(requests_by_name[0])

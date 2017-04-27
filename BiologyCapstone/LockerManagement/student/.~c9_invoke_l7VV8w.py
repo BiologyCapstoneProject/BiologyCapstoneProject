@@ -51,14 +51,14 @@ def RequestView(request):
         # email = EmailMessage('Hello everyone', 'World', to=['nghaberman@gmail.com'])
         # email.send()
         
-        form = RequestForm(data=request.POST)
+        dates_dict[(start + str(i))] = all[i]
         date = request.POST.get('date', '')
         reservation = request.POST.get('reservation', '')
         full_name = request.POST.get('full_name', '')
         email = request.POST.get('email', '')
         phone_num = request.POST.get('phone_num', '')
         timestamp = request.POST.get(datetime.now())
-        true_date = request.POST.get('date', '')
+        true_date = request.POST.get(date)
         
     
         if form.is_valid():

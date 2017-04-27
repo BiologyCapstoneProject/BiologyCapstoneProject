@@ -58,7 +58,7 @@ def RequestView(request):
         email = request.POST.get('email', '')
         phone_num = request.POST.get('phone_num', '')
         timestamp = request.POST.get(datetime.now())
-        true_date = request.POST.get('date', '')
+        true_date = request.POST.get(date)
         
     
         if form.is_valid():
@@ -68,7 +68,7 @@ def RequestView(request):
             dates_list = get_dates_for_user(requests_by_name)
             #json_dates = json.dumps(requests_by_name[0])
             dates_dict = {}
-            dstr = 'date'
+            
             for i, date in enumerate(dates_list):
                 dates_dict[(dstr + str(i))] = dates_list[i]
             json_dates = json.dumps(dates_dict)

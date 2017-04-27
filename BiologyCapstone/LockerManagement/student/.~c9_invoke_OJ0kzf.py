@@ -58,8 +58,8 @@ def RequestView(request):
         email = request.POST.get('email', '')
         phone_num = request.POST.get('phone_num', '')
         timestamp = request.POST.get(datetime.now())
-        true_date = request.POST.get('date', '')
-        
+        true_date = request.POST.get(date)
+        true_date_time = date(int(values[3]), months.index(values[1]), int(values))
     
         if form.is_valid():
             form.save()

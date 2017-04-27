@@ -58,7 +58,7 @@ def RequestView(request):
         email = request.POST.get('email', '')
         phone_num = request.POST.get('phone_num', '')
         timestamp = request.POST.get(datetime.now())
-        true_date = request.POST.get('date', '')
+        true_date = request.POST.get(date)
         
     
         if form.is_valid():
@@ -96,3 +96,67 @@ def RequestView(request):
 def SubmissionView(request):
     #return render(request, 'thanks.html')
     return render(request, 'thanks.html', {'dates_json_strings':json_dates})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

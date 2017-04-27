@@ -58,7 +58,7 @@ def RequestView(request):
         email = request.POST.get('email', '')
         phone_num = request.POST.get('phone_num', '')
         timestamp = request.POST.get(datetime.now())
-        true_date = request.POST.get('date', '')
+        true_date_time = date.now
         
     
         if form.is_valid():

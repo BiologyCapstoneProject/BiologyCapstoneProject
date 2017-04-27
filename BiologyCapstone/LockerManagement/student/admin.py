@@ -5,7 +5,7 @@ from django.contrib import admin
 from student.models import Request
 
 class RequestModelAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'email', 'reservation', 'date', 'timestamp')
+    list_display = ('full_name', 'email', 'reservation', 'date', 'true_date', 'timestamp')
     search_fields = ('full_name', 'email', 'reservation', 'date', 'timestamp')
 
 admin.site.register(Request, RequestModelAdmin)

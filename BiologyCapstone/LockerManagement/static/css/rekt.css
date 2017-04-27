@@ -77,6 +77,7 @@ h1 {
     color:  #fbb731;
     
 }
+
 .btn-default:hover, .btn-default:visited, .btn-modal:hover, .btn-modal:visited{ 
      background-color: #0c2647;
     background: -webkit-linear-gradient(#1a4195, #0c2647); /* For Safari 5.1 to 6.0 */
@@ -87,6 +88,7 @@ h1 {
 }
 
 #datepicker {
+    margin-top: 40px;
     border-style: solid;
     border-width:2px;
     border-color: #1a4195;
@@ -182,6 +184,7 @@ h1 {
 }
 
 #name_entry_box.form-control{
+    width: 250px;
     padding-left: 10px;
     border-width:2px;
     border-style: solid;
@@ -189,6 +192,8 @@ h1 {
 }
 
 #phone_entry_box.form-control, #email_entry_box.form-control{
+        width: 250px;
+
     border-style: solid;
     border-color: #1a4195;
     border-width:2px;
