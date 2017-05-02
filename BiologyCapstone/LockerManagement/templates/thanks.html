@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 
 <head>
-  
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Biology Department Equipment Rentals</title>
@@ -10,10 +9,9 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href=  '{% static "css/thanks.css" %}'/> 
-   
 </head>
+
 <body>
-    
     <div class="container" >
         <div class="row">
             <div class="col-lg-12">
@@ -23,6 +21,7 @@
             </div>
        </div>
        <script>
+       // sorts javascript Date objects
         var sort_dates = function(date1, date2){
             if(date1 > date2) return 1;
             if(date1 < date2) return -1;
@@ -35,6 +34,8 @@
         
         console.log(jsonObject);
         console.log("parsed JSON");
+        // iterates over the keys of the json object
+        // adds the value of each (a String) to listOfDates
         var listOfDates = [];
         for (var key in jsonObject) {
             if (jsonObject.hasOwnProperty(key)) {
@@ -42,7 +43,10 @@
             }
         }
         console.log(listOfDates);
+        
         var listOfDateObjects = [];
+        // converts each String in the list to a Javascript Date object
+        // adds the Date object to listOfDateObjects
         for(i = 0; i < listOfDates.length; i++){
             var theList = listOfDates[i].split(" ");
             aDate = new Date();
@@ -53,8 +57,11 @@
             listOfDateObjects.push(aDate);
             console.log(i);
         }
+        // sort the list of Date objects
         listOfDateObjects.sort(sort_dates);
 
+        // Convert the list of sorted Date objects to Strings,
+        // and write them to the thanks page
         var text = "<ol>";
         for(i = 0; i < listOfDateObjects.length; i++){
             var dayOfWeek = days[listOfDateObjects[i].getDay()];
@@ -81,7 +88,6 @@
         document.getElementById('textelement').innerHTML = text;
         console.log("testing list");
         </script>
-       
       <div class="container" >
         <div class="row">
             <div class="col-lg-3">
@@ -89,4 +95,3 @@
             </div>
        </div>
 </body>    
-    

@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['0.0.0.0.8080', 'django-capstone-nil10.c9users.io']
 #EMAIL_PORT = 587
 #EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 #EMAIL_HOST_USER='nlheureux12@yahoo.com '
-#EMAIL_HOST_PASSWORD='!42N18i14l'
+#EMAIL_HOST_PASSWORD=''
 #EMAIL_USE_TLS=True
 
 # Application definition
@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'student',
+    # only added one app 
+    'student', 
 ]
 
 MIDDLEWARE_CLASSES = [
