@@ -15,7 +15,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href= '{% static "css/rekt.css" %} ' /> 
     <link rel="stylesheet" href= '{% static "css/pikaday.css" %}'/>
-    <link rel="icon" type="image/x-icon" href="../images/froffavicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
@@ -109,28 +109,124 @@
                         
         <!--http://thestizmedia.com/radio-buttons-as-toggle-buttons-with-css/-->
         <div class="switch-field">
-          <input type="radio" id="switch_left" name="reservation" value="8:30 - 12:30" checked/>
+          <!--<input type="radio" id="switch_left" name="reservation" value="8:30 - 12:30" checked/>-->
+          <input type="radio" id="switch_left" name="reservation" value="8:30 - 12:30" disabled=true/>
           <label for="switch_left">8:30 - 12:30PM</label>
-          <input type="radio" id="switch_right" name="reservation" value="1:00 - 5:00 PM"/>
+          <!--<input type="radio" id="switch_right" name="reservation" value="1:00 - 5:00 PM"/>-->
+          <input type="radio" id="switch_right" name="reservation" value="1:00 - 5:00 PM" disabled=true/>
           <label for="switch_right">1:00 - 5:00PM</label>
         </div>
-                        <br>
-                        <!--Clicking on the button called Add Request calls sortParseAndWriteListOfDates.
-                        sortParseAndWriteListOfDates adds the Date object selected to an array of Date objects,
-                        sorts the array, and writes the sorted list sensibly to the page-->
-                <!--        <button  type="button" class="btn btn-default" onclick="sortParseAndWriteListOfDates()">Add Request</button> -->
-                        <button id="submit" type="submit" class="btn btn-default" onclick="submit()">Submit Form</button>
-            </div> </div>
-        
-        </div>
-        </div>
-        
-       
-   
+        <br>
+        <button id="submit" type="submit" class="btn btn-default" onclick="submit()">Submit Form</button>
 
     <script src='{% static "js/pikaday.js" %}'></script>
     
     <script>
+    var conversionMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var jsonObject = JSON.parse('{{all_dates_json_strings | escapejs}}');
+    var datesMap = {};
+    for (var key in jsonObject) {
+        if (jsonObject.hasOwnProperty(key)) {
+            // if that date is in the map
+            if (jsonObject[key] in datesMap){
+                datesMap[jsonObject[key]] = datesMap[jsonObject[key]] + 1;
+                console.log(jsonObject[key] + ':' + datesMap[jsonObject[key]]);
+            }
+            // if that date/time combo is not in the map, add it
+            else {
+                datesMap[jsonObject[key]] = 1;
+            }
+        }
+    }
+    console.log('MADE datesMap');
+    
+    // actualDatesMap should contain Date ojbects that have an hour as an attribute; the value is 1-however many requests have been made for that slot
+    var actualDatesMap = {};
+    for (var a_key in datesMap){
+        if (datesMap.hasOwnProperty(a_key)){
+            var theList = a_key.split(" ");
+            console.log(theList);
+            var aDate = new Date(parseInt(theList[3]), conversionMonths.indexOf(theList[1]), parseInt(theList[2]), parseInt(theList[4][0]) + 12);
+            actualDatesMap[aDate] = datesMap[a_key];
+        }
+    }
+    
+    // create a list of dates to disable
+    var disableTheseDates = [];
+    var timesToDisable = [];
+    for (var key in actualDatesMap){
+        if (actualDatesMap.hasOwnProperty(key)){
+            if (actualDatesMap[key] >= 4){
+                timesToDisable.push(key);
+            }
+            console.log(key);
+            console.log(actualDatesMap[key]);
+            for (var a_key in actualDatesMap){
+                if (actualDatesMap.hasOwnProperty(a_key)){
+                    var theList1 = key.split(" ");
+                    var theList2 = a_key.split(" ");
+                    // if the months are the same
+                    if (theList1[1] == theList2[1]){
+                        // if the dates are the same
+                        if (theList1[2] == theList2[2]){
+                            // if the years are the same
+                            if (theList1[3] == theList2[3]){
+                                // if the hours are different
+                                if (theList1[4] != theList2[4]){
+                                    // if they both have 4 or more reservations
+                                    if (actualDatesMap[key] >= 4 && actualDatesMap[a_key] >= 4){
+                                        disableTheseDates.push(key);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    var disableTheseTimes = [];
+    console.log("TIMES TO DISABLE");
+    for (i = 0; i < timesToDisable.length; i++){
+        if (disableTheseDates.indexOf(timesToDisable[i]) == -1) {
+            disableTheseTimes.push(timesToDisable[i]);
+        }
+    }
+    
+    console.log("THE TIMES TO DISABLE");
+    for (i = 0; i < disableTheseTimes.length; i++) {
+        console.log(disableTheseTimes[i]);
+    }
+    
+    var disableTheseTimeObjects = [];
+    for (i = 0; i < disableTheseTimes.length; i++){
+        var aList = disableTheseTimes[i].split(" ");
+        var dateToAdd = new Date(parseInt(aList[3]), conversionMonths.indexOf(aList[1]), parseInt(aList[2]), parseInt(aList[4].substring(0, 2)), 0, 0);
+        disableTheseTimeObjects.push(dateToAdd);
+    }
+    
+    console.log("CHECKING THE (DATE OBJECTS) TIMES TO DISABLE");
+    for (i = 0; i < disableTheseTimeObjects.length; i++) {
+        console.log(disableTheseTimeObjects[i]);
+    }
+    
+    var disableTheseDateObjects = [];
+    console.log("THESE DATES WILL BE DISABLED");
+    for (i = 0; i < disableTheseDates.length; i++){
+        console.log(disableTheseDates[i]);
+        var aList = disableTheseDates[i].split(" ");
+        var dateToAdd = new Date(parseInt(aList[3]), conversionMonths.indexOf(aList[1]), parseInt(aList[2]), 0, 0, 0);
+        if (disableTheseDateObjects.indexOf(dateToAdd) == -1){
+            disableTheseDateObjects.push(dateToAdd);
+        }
+    }
+    
+    console.log("THESE ARE THE DATES THAT NEED TO BE DISABLED");
+    for (i = 0; i < disableTheseDateObjects.length; i++){
+        console.log(disableTheseDateObjects[i]);
+    }
+    
     // Get the current date, day, and hour
     var minimumDate = new Date();
     var currentDay = minimumDate.getDay();
@@ -160,23 +256,68 @@
         minimumDate.setDate(minimumDate.getDate() + 1);
     }
     
-    // This is the script that creates a new pikaday object. In addition to initializing some 
-    // of its fields, it sets the first available date, and disallows selection of weekend dates
     var disable = false, picker = new Pikaday({
         field: document.getElementById('datepicker'),
         firstDay: 1,
         minDate: minimumDate,
         maxDate: new Date(2020, 12, 31),
         yearRange: [2000,2020],
-        /*
-        disableDayFn: function(theDate) {
-           return disable = !disable; 
-        },
-        */
+        
         disableWeekends: function(theDate) {
             return true;
+        },
+        onSelect: function(date) {
+            document.getElementById("switch_right").disabled=true;
+            document.getElementById("switch_left").disabled=true;
+            var chosen = picker.toString();
+            console.log("THIS IS THE CHOSEN DATE");
+            console.log(chosen);
+            //Fri May 19 2017
+            var listing = chosen.split(" ");
+            var chosenDate = new Date(parseInt(listing[3]), conversionMonths.indexOf(listing[1]), parseInt(listing[2]));
+            var enable = true;
+            for (i = 0; i < disableTheseTimeObjects.length; i++){
+                // if the chosen date is one of the dates for which one of the times should be disabled
+                if (disableTheseTimeObjects[i].getDate() === chosenDate.getDate()){
+                    if (disableTheseTimeObjects[i].getMonth() === chosenDate.getMonth()){
+                        if (disableTheseTimeObjects[i].getFullYear() === chosenDate.getFullYear()){
+                            if (disableTheseTimeObjects[i].getHours() == 20){
+                                enable = false;
+                                console.log("THE AM BUTTON SHOULD BE DISABLED FOR");
+                                console.log(disableTheseTimeObjects[i]);
+                                document.getElementById("switch_right").disabled=false;
+                                document.getElementById("switch_right").checked=true;
+                            }
+                            else {
+                                enable = false;
+                                console.log("THE PM BUTTON SHOULD BE DISABLED FOR");
+                                console.log(disableTheseTimeObjects[i]);
+                                document.getElementById("switch_left").disabled=false;
+                                document.getElementById("switch_left").checked=true;
+                            }
+                        }
+                    }
+                }
+            }
+            if (enable){
+                document.getElementById("switch_left").disabled=false;
+                document.getElementById("switch_left").checked=true;
+                document.getElementById("switch_right").disabled=false;
+            }
+        },
+        disableDayFn: function(theDate){
+            for (i = 0; i < disableTheseDates.length; i++){
+                if (theDate.getDate() === disableTheseDateObjects[i].getDate()){
+                    if (theDate.getMonth() === disableTheseDateObjects[i].getMonth()){
+                        if (theDate.getFullYear() === disableTheseDateObjects[i].getFullYear()){
+                            return true;
+                        }
+                    }
+                }
+            }
         }
     });
+    
     </script>
     
     <script>
@@ -195,52 +336,6 @@
     }
     </script>
     
-    
-    <script>
-        function writeListOfDates() {
-            var text = "<ol>";
-            for(i = 0; i < list_of_dates.length(); i++){
-                text += "<li>" + list_of_dates[i] + "<li>";
-            }
-            text += "</ol>"
-            document.getElementById('demos').innerHTML = text;
-        }
-    </script>
-    
-    <script>
-        // This function sorts dates in ascending order.
-        // I used it because javascript's built in sort was behaving unpredictably when sorting Date objects
-        // This function is similar to the one found here: https://onpub.com/how-to-sort-an-array-of-dates-with-javascript-s7-a109
-        var sort_dates = function(date1, date2){
-            if(date1 > date2) return 1;
-            if(date1 < date2) return -1;
-            return 0;
-        };
-        // create 3 lists: an empty list of Date objects, a list of strings for days of the week, a list of strings for months of year
-        var dates = [];
-        var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        // This function adds selected Date objects to the dates list, calls a sorting method for them, 
-        // parses them into Strings, and displays them in the format Friday February 17 2017
-        function sortParseAndWriteListOfDates() {
-            dates.push(picker.getDate());
-            dates.sort(sort_dates);
-            var numberOfDates = dates.length;
-            var text = "<ol>";
-            for(i = 0; i < numberOfDates; i++){
-                var dayOfWeek = days[dates[i].getDay()];
-                var monthOfYear = months[dates[i].getMonth()];
-                var theYear = dates[i].getFullYear();
-                var theHour = dates[i].getHours();
-                var string = dates[i].toString();
-                text += "<li>" + dayOfWeek + ' ' + monthOfYear + ' ' + dates[i].getDate() + ' ' + theYear + "</li>";
-            }
-            text += "</ol>";
-            document.getElementById('demos').innerHTML = text;
-            document.getElementByName('Submit Form').disabled = false;
-            document.getElementByName('Add Request').disabled = true;
-        }
-    </script>
     <script src="./static/js/bootstrap.min.js"></script>
 
 
@@ -263,8 +358,6 @@
                 responsible for all equipment checked out. You will pay for repair or replacement 
                 of any lost or damaged items.</p>
                 <p class="Important"><strong>Very Important Information</strong></p>
-                <!--I have commented out the following rules, because I have implemented this logic in a javascript function.
-                If Ms. Rodriguez would like to show these rules, we can uncomment them-->
                 <p class="Agreement">Equipment and supplies will be reserved on a <strong>first-come, first-served basis.</strong></p>
                 <p class="Agreement">In order to give us time to prepare the equipment and supplies, 
                 <strong>reservations must be placed one buisiness day in advance (M-F).</strong></p>

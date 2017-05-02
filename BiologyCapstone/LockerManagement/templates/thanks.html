@@ -17,7 +17,7 @@
     <div class="container" >
         <div class="row">
             <div class="col-lg-12">
-                <h1>Thanks for submitting you form!<br><br>
+                <h1>Thanks for submitting your form!<br><br>
                 You will receive an email shortly!</h1>
                 <p id="textelement">Your Requests</p>
             </div>
@@ -38,7 +38,6 @@
         var listOfDates = [];
         for (var key in jsonObject) {
             if (jsonObject.hasOwnProperty(key)) {
-                console.log("looping")
                 listOfDates.push(jsonObject[key])
             }
         }
@@ -48,7 +47,7 @@
             var theList = listOfDates[i].split(" ");
             aDate = new Date();
             aDate.setMonth(months.indexOf(theList[1]));
-            aDate.setYear(parseInt(theList[3]));
+            aDate.setFullYear(parseInt(theList[3]));
             aDate.setDate(parseInt(theList[2]));
             aDate.setHours(parseInt(theList[4][0]) + 12);
             listOfDateObjects.push(aDate);
@@ -70,7 +69,7 @@
             }
             else {
                 meridian = 'PM';
-                min = 00;
+                min = "00";
             }
             var string = listOfDateObjects[i].toString();
             text += "<li>" + dayOfWeek + ', ' + monthOfYear + ' ' + listOfDateObjects[i].getDate() + ' ' + theYear + ' ' + theHour + ':' + min + ' ' + meridian + "</li>";
@@ -81,9 +80,6 @@
         console.log(text);
         document.getElementById('textelement').innerHTML = text;
         console.log("testing list");
-
-        //document.getElementById("textelement").innerHTML = listOfDates;
-        
         </script>
        
       <div class="container" >

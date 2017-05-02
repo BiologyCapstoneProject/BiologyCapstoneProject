@@ -8,11 +8,15 @@ from django.core.mail import EmailMessage
 import json
 from django.core.exceptions import ValidationError
 
-
+# global variables that will be used throughout views.py
 months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 json_dates = {}
+json_all_dates = {}
+
 def get_dates_for_user(requests_by_name):
+    """
+    """
         list_of_dates = []
         datetimes = []
         for request in requests_by_name:
@@ -21,6 +25,8 @@ def get_dates_for_user(requests_by_name):
         for date in list_of_dates:
             dateString = datetime.now()
             strings_from_db = date[0].split()
+            print strings_from_db
+            print months.index(strings_from_db[1]) + 1
             newDate = dateString.replace(month = months.index(strings_from_db[1]) + 1, 
             day = int(strings_from_db[2]), 
             year =  int(strings_from_db[3]),
@@ -45,12 +51,14 @@ def get_dates_for_user(requests_by_name):
 
 def RequestView(request):
     global json_dates
+    global json_all_dates
     dates_list = []
+    all_of_the_dates_as_list_of_strings = []
 
     if request.method == 'POST':
         # email = EmailMessage('Hello everyone', 'World', to=['nghaberman@gmail.com'])
         # email.send()
-        
+
         form = RequestForm(data=request.POST)
         date = request.POST.get('date', '')
         reservation = request.POST.get('reservation', '')
@@ -58,7 +66,27 @@ def RequestView(request):
         email = request.POST.get('email', '')
         phone_num = request.POST.get('phone_num', '')
         timestamp = request.POST.get(datetime.now())
-        true_date = request.POST.get('date', '')
+        true_date = request.POST.get(datetime.now())
+        # a_datetime = datetime.now()
+        # words = date.split()
+        # the_day_requested = int(words[2])
+        # the_month_requested = months.index(words[1]) + 1
+        # the_year_requested = int(words[3])
+        # print "PRINTING TOKENS"
+        # print the_day_requested
+        # print the_month_requested
+        # print the_year_requested
+        # a_datetime.replace(year=the_year_requested)
+        # a_datetime.replace(month=the_month_requested)
+        # a_datetime.replace(day=the_day_requested)
+        # new_string = str(the_day_requested) + words[1] + words[3]
+        # b_datetime = datetime.strptime(new_string, '%d%b%Y')
+        # print "THE NEW DATETIME"
+        # print b_datetime
+        # true_date = request.POST.get(b_datetime)
+        #post_mutable = request.POST.copy()
+        # Now you can change values:
+        #post_mutable['true_date'] = b_datetime
         
     
         if form.is_valid():
@@ -66,33 +94,27 @@ def RequestView(request):
             requests_by_name = Request.objects.all().filter(full_name=str(full_name)).values()
             requests_by_given_time = Request.objects.all().filter(date=str(date), reservation=str(reservation)).values()
             dates_list = get_dates_for_user(requests_by_name)
-            #json_dates = json.dumps(requests_by_name[0])
             dates_dict = {}
             dstr = 'date'
             for i, date in enumerate(dates_list):
                 dates_dict[(dstr + str(i))] = dates_list[i]
             json_dates = json.dumps(dates_dict)
-                
-            count_am = 0
-            count_pm = 0
-            for request in requests_by_given_time:
-                if request['reservation'].encode('ascii')[0] is '8':
-                    count_am += 1
-                else:
-                    count_pm += 1
-            # if there are now 4 requests for the given date:
-            # disable that date in the calendar
-                
-            
             return HttpResponseRedirect('/thanks')
         
     else: 
         form = RequestForm()
-    #return render(request, 'rekt.html', {'dates_list': dates_list})
 
-    return render(request, 'rekt.html')
+    # This is where I render the rekt.html template on page-load
+    all_requests = Request.objects.all().values()
+    print all_requests
+    all_of_the_dates_as_list_of_strings = get_dates_for_user(all_requests)
+    all_dates_dict = {}
+    all_dstr = 'date'
+    for i, date in enumerate(all_of_the_dates_as_list_of_strings):
+        all_dates_dict[(all_dstr + str(i))] = all_of_the_dates_as_list_of_strings[i]
+    json_all_dates = json.dumps(all_dates_dict)
+    return render(request, 'rekt.html', {'all_dates_json_strings':json_all_dates})
     
     
 def SubmissionView(request):
-    #return render(request, 'thanks.html')
     return render(request, 'thanks.html', {'dates_json_strings':json_dates})
